@@ -28,6 +28,18 @@ npm run dev
 
 Abrí [http://localhost:3000](http://localhost:3000).
 
+## Getting Started (Backend)
+
+```bash
+cd backend
+python -m venv .venv
+.venv\Scripts\activate
+pip install -r requirements.txt
+uvicorn app.main:app --reload
+```
+
+Documentación de la API [http://localhost:8000/docs](http://localhost:8000/docs).
+
 ## Licencia
 
 Interno — e25-innovaLab
