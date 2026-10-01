@@ -8,39 +8,90 @@ Backend API for analyzing teaching materials and providing accessibility diagnos
 - FastAPI
 - Uvicorn
 - Pydantic
+- SQLAlchemy
+- Alembic
+- PostgreSQL
+- Docker
 
 ## Run
 
-Create and activate a virtual environment:
+Make sure [Docker Desktop](https://www.docker.com/products/docker-desktop/) is installed and running.
+
+Start the project for the first time:
 
 ```bash
-python -m venv .venv
-.venv\Scripts\activate
+docker compose up --build
 ```
 
-Install dependencies:
+For subsequent executions:
 
 ```bash
-pip install -r requirements.txt
+docker compose up
 ```
 
-Start the development server:
+To run the services in the background:
 
 ```bash
-uvicorn app.main:app --reload
+docker compose up -d
 ```
 
-Open http://localhost:8000.
+The backend will be available at [http://localhost:8000](http://localhost:8000).
 
-API documentation: http://localhost:8000/docs.
+API documentation: [http://localhost:8000/docs](http://localhost:8000/docs).
+
+Health check: [http://localhost:8000/health](http://localhost:8000/health).
+
+### Database migrations
+
+The project uses PostgreSQL and Alembic for database migrations.
+
+After starting the services, apply the existing migrations:
+
+```bash
+docker compose run --rm backend alembic upgrade head
+```
+
+To create a new migration after modifying the database models:
+
+```bash
+docker compose run --rm backend alembic revision --autogenerate -m "description of changes"
+```
+
+Then apply it:
+
+```bash
+docker compose run --rm backend alembic upgrade head
+```
+
+> Do not run `alembic init alembic`, as the Alembic configuration and migration files are already included in the repository.
 
 ## Structure
 
 ```text
 app/
-  main.py       FastAPI application and initial endpoints
+  ai/             AI and Gemini integration
+  core/           Application configuration and shared components
+  database/       Database connection and session management
+  models/         SQLAlchemy database models
+  repositories/   Database access and queries
+  routers/        API endpoints and route definitions
+  rules/          Accessibility rules and analysis logic
+  schemas/        Pydantic schemas for API requests and responses
+  services/       Application and business logic
+  utils/          Shared utility functions
+  main.py         FastAPI application and API configuration
 
-tests/          Backend tests
+alembic/
+  versions/       Database migration files
+  env.py          Alembic migration configuration
+
+data/             Uploaded files and application data
+
+tests/            Backend tests
+
+docker-compose.yml    Docker services configuration
+Dockerfile            Backend Docker image configuration
+requirements.txt      Python project dependencies
 ```
 
 Project documentation and API contracts: `../docs/`.

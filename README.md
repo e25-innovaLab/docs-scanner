@@ -7,7 +7,7 @@ Herramienta de accesibilidad para documentos docentes.
 ```
 docs-scanner/
 ├── frontend/          # Next.js + TypeScript + Tailwind CSS
-├── backend/           # FastAPI (próximamente)
+├── backend/           # FastAPI + Docker
 ├── docs/              # Documentación y evidencia de investigación
 └── .github/           # Configuración de la org
 ```
@@ -15,7 +15,7 @@ docs-scanner/
 ## Stack
 
 - **Frontend:** Next.js, TypeScript, Tailwind CSS
-- **Backend:** FastAPI (Python)
+- **Backend:** Docker, FastAPI (Python)
 - **IA:** Gemini API
 
 ## Getting Started (Frontend)
@@ -30,12 +30,17 @@ Abrí [http://localhost:3000](http://localhost:3000).
 
 ## Getting Started (Backend)
 
+### Requerimientos
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+- Docker Compose está incluido en las versiones actuales de Docker Desktop.
+
+> **Importante:** Docker Desktop debe estar abierto y ejecutándose antes de utilizar los comandos de Docker.
+
+### Ejecutanto el proyecto
+
 ```bash
 cd backend
-python -m venv .venv
-.venv\Scripts\activate
-pip install -r requirements.txt
-uvicorn app.main:app --reload
+docker compose up --build
 ```
 
 Documentación de la API [http://localhost:8000/docs](http://localhost:8000/docs).
