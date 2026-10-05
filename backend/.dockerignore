@@ -3,12 +3,11 @@ venv/
 __pycache__/
 *.py[cod]
 .pytest_cache/
-.coverage
-htmlcov/
-
+.git/
+.gitignore
 .env
 .env.*
 !.env.example
-
-data/*
-!data/.gitkeep
+.coverage
+htmlcov/
+README.md
